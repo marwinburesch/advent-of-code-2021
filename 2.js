@@ -11,15 +11,18 @@ const instructions = input.split("\n").reduce((array, currentValue) => {
 }, []);
 
 const position = { horizontal: 0, depth: 0 };
+let aim = 0;
 
 for (let index = 0; index < instructions.length; index++) {
   const move = instructions[index];
   if (move.movement === "forward") {
     position.horizontal = position.horizontal + move.distance;
+    const gain = aim * move.distance;
+    position.depth = position.depth + gain;
   } else if (move.movement === "up") {
-    position.depth = position.depth - move.distance;
+    aim = aim - move.distance;
   } else if (move.movement === "down") {
-    position.depth = position.depth + move.distance;
+    aim = aim + move.distance;
   }
 }
 
